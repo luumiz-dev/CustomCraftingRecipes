@@ -1,0 +1,12 @@
+on load:
+    set {_i1} to diamond sword named "&7Gift of the Reaper" with lore "&7Beheading I" 
+    enchant {_i1} with Sharpness 5
+    register new shapeless recipe for {_i1} using wither skeleton skull, diamond block, wither skeleton skull, air, diamond sword, air, air, diamond block, air with id "gift_of_the_reaper" in group "halloween_crate"
+
+on death of player:
+	if lore of attacker's held item contains "&7Beheading I":
+		attacker is a player
+		victim is a player
+		if lore of attacker's held item contains "&7Beheading I":
+			set {_head} to skull of "%victim%" parsed as offlineplayer
+			drop {_head} named "&c%victim%'s Head" with lore "&4Killed by %attacker% on %now%" at attacker
