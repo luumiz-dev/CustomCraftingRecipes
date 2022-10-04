@@ -1,0 +1,46 @@
+on load:
+    set {_i1} to bow named "&eTorch Bow" with lore "&eL&6i&fg&eh&6t &7those caves a bit quicker" 
+    enchant {_i1} with Infinity
+    set {_req} to torch named "&eTorch Arrow" with lore "&7I wonder how I can shoot this..."
+    register new shaped recipe for {_i1} using air, air, air, bow, {_req}, air, air, air and air with id "torch_bow" in group "halloween_crate"
+
+
+import:
+    org.bukkit.event.player.PlayerInteractEvent
+
+on projectile hit:
+    if line 1 of lore of shooter's held item contains "&eL&6i&fg&eh&6t &7those caves a bit quicker":
+        if shooter has 1 torch:
+            set {_x} to event.getHitBlockFace()
+            if "%{_x}%" is "UP":
+                if block above event-block is air:
+                    delete projectile
+                    set the block above the event-block to torch
+            else if "%{_x}%" is "NORTH":
+                set {_blockLoc} to block at location of event-block
+                set {_block} to the block north of {_blockLoc}
+                set {_loc} to location of {_blockLoc}
+                if block at location {_loc} is air:
+                    delete projectile
+                    set block at {_block} to wall torch[facing=north]
+            else if "%{_x}%" is "SOUTH":
+                set {_blockLoc} to block at location of event-block
+                set {_block} to the block south of {_blockLoc}
+                set {_loc} to location of {_blockLoc}
+                if block at location {_loc} is air:
+                    delete projectile
+                    set block at {_block} to wall torch[facing=south]
+            else if "%{_x}%" is "EAST":
+                set {_blockLoc} to block at location of event-block
+                set {_block} to the block east of {_blockLoc}
+                set {_loc} to location of {_blockLoc}
+                if block at location {_loc} is air:
+                    delete projectile
+                    set block at {_block} to wall torch[facing=east]
+            else if "%{_x}%" is "WEST":
+                set {_blockLoc} to block at location of event-block
+                set {_block} to the block west of {_blockLoc}
+                set {_loc} to location of {_blockLoc}
+                if block at location {_loc} is air:
+                    delete projectile
+                    set block at {_block} to wall torch[facing=west]
